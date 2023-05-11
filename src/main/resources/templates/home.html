@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sản Phẩm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <span th:if="${username == null}"><a class="navbar-brand" href="#">Đăng Ký</a></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+        <span th:if="${username == null}">
+            <a class="nav-link btn btn-outline-primary" href="/login">Đăng nhập</a>
+        </span>
+                <span th:if="${username != null}">
+            <span class="nav-link text-danger" th:text="'Xin chào ' + ${username}" style="color: red"></span>
+        </span>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link"  style="font-size: 24px" href="#">
+                    <i class="fa fa-shopping-cart fa-lg"></i>
+                    <span id="cart-count"></span>
+                </a>
+            </li>
+        </ul>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1 class="text-center mt-3" style="background-color: cornsilk; color: red;">Danh sách Sản phẩm</h1>
+    <div class="card-deck">
+        <div th:each="product: ${listproduct}" class="card">
+            <img class="card-img-top" th:src="${product.imageUrl}">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${product.productName}"></h5>
+                <p class="card-text" th:text="${product.productDescription}"></p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted" th:text="${product.productDiscountedPrince}"></small>
+                <a th:href="@{'/product/' + ${product.id}}" class="btn btn-primary stretched-link">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965"></script>
+</body>
+</html>
+</html>

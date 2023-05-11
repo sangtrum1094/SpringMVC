@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form class="form-signin" th:action="@{/adduserrole}" method="post">
+  <input type="text" class="form-control" placeholder="Username"  name="username" />
+  <input type="number" class="form-control" placeholder="id"  name="id"/>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">ADD role</button>
+</form>
+</body>
+</html>

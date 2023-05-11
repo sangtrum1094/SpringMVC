@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm sản phẩm mới</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Thêm sản phẩm mới</h2>
+    <form th:action="@{/admin/addproduct}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="productName">Tên sản phẩm:</label>
+            <input type="text" class="form-control" id="productName" name="productName" required>
+        </div>
+        <div class="form-group">
+            <label for="productDescription">Mô tả sản phẩm:</label>
+            <textarea class="form-control" id="productDescription" name="productDescription" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="productDiscountedPrince">Giá bán:</label>
+            <input type="number" class="form-control" id="productDiscountedPrince" name="productDiscountedPrince" required>
+        </div>
+        <div class="form-group">
+            <label for="productActualPrince">Giá gốc:</label>
+            <input type="number" class="form-control" id="productActualPrince" name="productActualPrince" required>
+        </div>
+        <div class="form-group">
+            <label for="productImage">Ảnh sản phẩm:</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="productImage" name="productImage" accept="Image/*" required>
+                <label class="custom-file-label" for="productImage">Chọn file</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi4h1HM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+</body>
+</html>

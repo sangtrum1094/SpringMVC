@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="application/javascript" src="/js/product-details.js"></script>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item ml-auto">
+        <a class="nav-link" style="font-size: 24px" href="#">
+            <i class="fa fa-shopping-cart fa-lg"></i>
+            <span id="cart-count"></span>
+        </a>
+    </li>
+</ul>
+</ul>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img th:src="${product.imageUrl}" class="img-fluid"/>
+        </div>
+        <div class="col-md-8">
+            <h2 th:text="${product.productName}"></h2>
+            <p th:text="${product.productDescription}"></p>
+            <p class="font-weight-bold">Giá giảm giá: <span th:text="${product.productDiscountedPrince}"></span></p>
+            <p class="font-weight-bold" id="productActualPrince">Giá thực tế: <span
+                    th:text="${product.productActualPrince}"></span></p>
+            <form id="add-to-cart-form">
+                <label for="quantity-input">Số lượng:</label><br>
+                <input type="number" id="quantity-input" name="quantity" value="1" min="1" max="10"><br>
+                <p class="font-weight-bold">Tổng tiền: <span id="totalProductPrice"
+                                                             th:text="${product.productActualPrince}"></span> VND</p>
+                <button type="submit" class="btn btn-primary mt-3">Mua hàng</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Thư viện bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

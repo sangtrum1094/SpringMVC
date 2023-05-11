@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách Sản phẩm</title>
+  <!-- Thêm link Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <style>
+    table img {
+      max-width: 50%;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+    .header {
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .footer {
+      background-color: #343a40;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mt-3" style="background-color: cornsilk; color: red;">Danh sách Sản phẩm</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead style="background-color: green; color: white;">
+        <tr>
+        <tr>
+          <th scope="col" style="width: 30%">TÊN SẢN PHẨM</th>
+          <th scope="col" style="width: 20%; text-align: center;">MÔ TẢ SẢN PHẨM</th>
+          <th scope="col" style="width: 15%; text-align: center;">SẢN PHẨM GIẢM GIÁ</th>
+          <th scope="col" style="width: 15%; text-align: center;">GIÁ THỰC TẾ</th>
+          <th scope="col" style="width: 20%; text-align: center;">ẢNH SẢN PHẨM</th>
+          <th scope="col" style="width: 20%; text-align: right;">XÓA SẢN PHẨM</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Lặp qua danh sách sản phẩm -->
+        <tr th:each="product : ${products}">
+          <td><a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.productName}"></a></td>
+          <td th:text="${product.productDescription}"></td>
+          <td th:text="${product.productDiscountedPrince}"></td>
+          <td th:text="${product.productActualPrince}"></td>
+          <td><img th:src="${product.imageUrl}" class="img-fluid" /></td>
+          <td>
+            <form method="post" th:action="@{/deleteproduct}">
+              <input type="hidden" name="id" th:value="${product.id}" />
+              <button type="submit" class="btn btn-danger text-center">Xóa Sản Phẩm</button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<div class="footer">
+  <p>&copy; 2023 - Tên trang web</p>
+</div>
+<!-- Thêm script Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965"></script>
+</body>
