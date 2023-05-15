@@ -14,15 +14,16 @@ public class RoleController {
     RoleService roleService;
 
     @GetMapping("/addrole")
-    public String AddRolePage(){
+    public String AddRolePage() {
         return "addrole";
     }
-   @PostMapping("/addrole")
-    public String AddnewRole(@RequestParam("name") String name){
-       Role role= new Role();
-       role.setName(name);
-       roleService.save(role);
-       return "listproduct";
-   }
+
+    @PostMapping("/addrole")
+    public String AddnewRole(@RequestParam("name") String name) {
+        Role role = new Role();
+        role.setName(name);
+        roleService.save(role);
+        return "listproduct";
+    }
 
 }
