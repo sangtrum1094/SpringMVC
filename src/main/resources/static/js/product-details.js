@@ -44,6 +44,7 @@ $(document).ready(function() {
         // Lưu giỏ hàng vào cookie
         setCart(cart);
 
+
         // Hiển thị thông báo thành công
         alert('Sản phẩm đã được thêm vào giỏ hàng!');
     });

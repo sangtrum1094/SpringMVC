@@ -20,11 +20,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -65,19 +63,26 @@ public class CartController {
             cartNew.setCreatedDate(new Date());
             cartService.addToCart(cartNew);
         }
-           return  null;
+           return  "redirect:/cart";
         }
 
     @GetMapping("/cart")
-    public String ShowAllCart(Model model){
+    public String showAllCart(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name =auth.getName();
         User user = userService.findUserByUserName(name);
-        int id = user.getId();
+        Optional<User> optionalUser = Optional.ofNullable(user);
+        int id = optionalUser.map(User::getId).orElse(-1);
         List<Cart> carts=cartService.findAllByUserId(id);
         model.addAttribute("carts",carts);
         return "cart";
+    }
 
+    @Transactional
+    @GetMapping("/delete/{id}")
+    public  String deleteCartById(@PathVariable("id") int id){
+          cartService.deleteCartById(id);
+          return "redirect:/cart";
     }
 }
 

@@ -1,27 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cart</title>
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Cart</h1>
-<table>
-  <thead>
-  <tr>
-    <th>Product Name</th>
-    <th>Quantity</th>
-    <th>Created Date</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="cart : ${carts}">
-    <td th:text="${cart.product.productName}"></td>
-    <td th:text="${cart.quantity}"></td>
-    <td th:text="${cart.createdDate}"></td>
-    <img  th:src="${cart.product.imageUrl}">
-  </tr>
-  </tbody>
-</table>
+  <div class="container py-5">
+    <h1 class="mb-5">Cart</h1>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Tên Sản Phẩm</th>
+        <th>Số Lượng</th>
+        <th>Ngày Thêm</th>
+        <th>Ảnh</th>
+        <th>Giá</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="cart : ${carts}">
+        <td th:text="${cart.product.productName}"></td>
+        <td th:text="${cart.quantity}"></td>
+        <td th:text="${cart.createdDate}"></td>
+        <td><img th:src="${cart.product.imageUrl }" alt="product image" style="max-width: 100px; max-height: 100px;"></td>
+        <td th:text="${cart.product.getProductActualPrince()}"></td>
+        <td><button class="btn btn-primary">Mua ngay</button></td>
+        <td><form th:action="@{/delete/{id}(id=${cart.id})}" method="get">
+          <input type="hidden" name="_method" value="DELETE" />
+          <button type="submit" class="btn btn-danger">Xóa</button>
+        </form></td>
+      </tr>
+      </tr>
+      <tr>
+        <td colspan="4">Tổng Tiền</td>
+        <td id="total"></td>
+        <td>
+              <a href="https://www.paypal.com/paypal_checkout" class="btn btn-success">Thanh toán</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let total = 0;
+    const prices = document.querySelectorAll("td:nth-child(5)");
+    prices.forEach((price) => {
+      total += parseFloat(price.textContent);
+    });
+    document.getElementById("total").textContent = total+" $";
+  </script>
 </body>
 </html>

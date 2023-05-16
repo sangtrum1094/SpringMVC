@@ -17,4 +17,6 @@ public interface CartService {
     Product findByProductId(int id);
 
     Cart  findByUserIdAndProductId(int userId, int productId);
+    void deleteCartById(int id);
+
 }
