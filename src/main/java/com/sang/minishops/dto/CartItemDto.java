@@ -1,18 +1,20 @@
 package com.sang.minishops.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-/**
- * The type User dto.
- */
+
+@NoArgsConstructor
 @Setter
 @Getter
-@NoArgsConstructor
+@Component
 @AllArgsConstructor
-public class UserDto   {
-     private  String username;
+public class CartItemDto {
+    private int id;
+    private int quantity;
+
+
 }
