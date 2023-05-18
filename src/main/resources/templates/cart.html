@@ -39,7 +39,10 @@
         <td colspan="4">Tổng Tiền</td>
         <td id="total"></td>
         <td>
-              <a href="https://www.paypal.com/paypal_checkout" class="btn btn-success">Thanh toán</a>
+          <form method="post" th:action="@{/pay}">
+            <input type="text" value="5" name="price" />
+            <button type="submit"> Thanh toán Paypal </button>
+          </form>
         </td>
       </tr>
       </tbody>
