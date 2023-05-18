@@ -1,12 +1,13 @@
 package com.sang.minishops.config;
 
+import com.sang.minishops.service.imp.UserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +18,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private UserDetailService userDetailService;
+
+    @Autowired
+    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     /**
      * Password encoder password encoder.
      *
@@ -31,14 +38,13 @@ public class SecurityConfig {
     /**
      * Auth manager authentication manager.
      *
-     * @param http               the http
-     * @param userDetailsService the user details service
+     * @param http the http
      * @return the authentication manager
      * @throws Exception the exception
      */
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class).userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()).and().build();
+    public AuthenticationManager authManager(HttpSecurity http, UserDetailService userDetailService) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class).userDetailsService(userDetailService).passwordEncoder(passwordEncoder()).and().build();
     }
 
     /**
@@ -52,20 +58,27 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/","/addroles","/home","/adduser","/addrole","/Image/**","/js/**","/product/{id}","/product/**").permitAll()
-                        .requestMatchers("/admin","/admin/addproduct","/deleteproduct","/listproduct").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/", "/addroles", "/home", "/adduser", "/addrole", "/Image/**", "/js/**", "/product/{id}", "/product/**", "/add-to-cart","/cart").permitAll()
+                        .requestMatchers("/admin", "/admin/addproduct", "/deleteproduct", "/listproduct").hasAnyAuthority("ADMIN")
                         .requestMatchers("/user").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login-start")
-                        .usernameParameter("username")
-                        .passwordParameter(("password"))
                         .defaultSuccessUrl("/home")
+                        .successHandler(customAuthenticationSuccessHandler)
                         .failureUrl("/login?error=true")
                         .permitAll()
-                );
+                )
+                .logout((logout) -> logout
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .permitAll()
+                )
+                .csrf().disable();
         return http.build();
     }
 

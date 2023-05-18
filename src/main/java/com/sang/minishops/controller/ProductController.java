@@ -5,7 +5,7 @@ import com.sang.minishops.entity.Image;
 import com.sang.minishops.entity.Product;
 import com.sang.minishops.service.ImageService;
 import com.sang.minishops.service.ProductService;
-import com.sang.minishops.service.imp.UserDetailDevices;
+import com.sang.minishops.service.imp.UserDetailService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -82,10 +82,10 @@ public class ProductController {
     }
 
     @GetMapping("/home")
-    public String showListProduct(Model model){
-        List<Product> listProduct=productService.getAllProduct();
-        model.addAttribute("listproduct",listProduct);
-        UserDetailDevices userDetailDevices = new UserDetailDevices();
+    public String showListProduct(Model model) {
+        List<Product> listProduct = productService.getAllProduct();
+        model.addAttribute("listproduct", listProduct);
+        UserDetailService userDetailDevices = new UserDetailService();
         String currentUsername = userDetailDevices.getCurrentUsername();
         model.addAttribute("username", currentUsername);
         return "home";
