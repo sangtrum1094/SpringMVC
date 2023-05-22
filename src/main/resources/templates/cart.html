@@ -34,14 +34,15 @@
           <button type="submit" class="btn btn-danger">Xóa</button>
         </form></td>
       </tr>
-      </tr>
       <tr>
         <td colspan="4">Tổng Tiền</td>
         <td id="total"></td>
-        <td>
-          <form method="post" th:action="@{/pay}">
-            <input type="text" value="5" name="price" />
-            <button type="submit"> Thanh toán Paypal </button>
+      </tr>
+      <tr>
+        <td colspan="5" class="payment-cell">
+          <form id="paymentForm" method="post" th:action="@{/pay}">
+            <input type="hidden" name="price" />
+            <button type="submit">Thanh toán Paypal</button>
           </form>
         </td>
       </tr>
@@ -49,13 +50,24 @@
     </table>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .payment-cell {
+      text-align: right;
+    }
+  </style>
   <script>
     let total = 0;
     const prices = document.querySelectorAll("td:nth-child(5)");
     prices.forEach((price) => {
       total += parseFloat(price.textContent);
     });
-    document.getElementById("total").textContent = total+" $";
+    document.getElementById("total").textContent = total + " $";
+
+    // Gán giá trị tổng tiền vào trường ẩn khi form được gửi
+    document.getElementById("paymentForm").addEventListener("submit", function() {
+      const priceInput = document.querySelector("input[name='price']");
+      priceInput.value = total;
+    });
   </script>
 </body>
 </html>

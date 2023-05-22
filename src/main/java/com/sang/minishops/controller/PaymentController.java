@@ -49,7 +49,7 @@ public class PaymentController {
             log.error(e.getMessage());
             throw new RuntimeException(e);
         }
-        return "redirect:/";
+        return "redirect:/home";
     }
     @GetMapping(URL_PAYPAL_CANCEL)
     public String cancelPay(){
@@ -65,6 +65,6 @@ public class PaymentController {
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
-        return "redirect:/";
+        return "redirect:/cancel";
     }
 }

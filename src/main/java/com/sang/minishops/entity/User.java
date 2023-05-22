@@ -36,7 +36,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new LinkedHashSet<>();
 
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Cart> carts = new HashSet<>();
 

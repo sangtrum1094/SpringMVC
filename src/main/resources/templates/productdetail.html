@@ -36,7 +36,7 @@
                     <label for="quantity-input">Số lượng:</label><br>
                     <input type="number" id="quantity-input" name="quantity" value="1" min="1" max="10" /><br>
                     <p class="font-weight-bold">Tổng tiền: <span id="totalProductPrice" th:name="totalProductPrice" th:text="${product.productActualPrince}"></span> VND</p>
-                    <button  class="btn btn-primary mt-3" id="add-to-cart" th:onclick="addToCart()" >Thêm Vào Giỏ hàng</button>
+                    <button  class="btn btn-primary mt-3" id="add-to-cart" >Thêm Vào Giỏ hàng</button>
                     <button type="submit" class="btn btn-primary mt-3"  >Mua Hàng</button>
                 </form>
             </div>

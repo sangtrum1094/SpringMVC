@@ -42,7 +42,6 @@ public class ProductController {
         product.setProductDiscountedPrince(productDto.getProductDiscountedPrince());
         product.setProductActualPrince(productDto.getProductActualPrince());
         productService.saveProduct(product, files);
-
         model.addAttribute("message", "Product added successfully!");
         return "redirect:/listproduct";
     }
@@ -75,7 +74,7 @@ public class ProductController {
         Product product = productService.GetProductById(id);
         Set<Image> images = product.getImages();
         for (Image image : images) {
-            imageService.deleteById(image.getId());
+                imageService.deleteById(image.getId());
         }
         productService.DeleteProduct(id);
         return "redirect:/listproduct";
