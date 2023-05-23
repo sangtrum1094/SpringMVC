@@ -14,4 +14,6 @@ public interface ProductService {
     Product GetProductById(int id);
 
     void DeleteProduct(int id);
+
+    void saveProductCsv(Product product);
 }
