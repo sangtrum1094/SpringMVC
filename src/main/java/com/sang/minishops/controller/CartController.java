@@ -9,6 +9,7 @@ import com.sang.minishops.service.ProductService;
 import com.sang.minishops.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,15 +27,14 @@ import java.util.Optional;
 
 
 @Controller
+@RequiredArgsConstructor
 public class CartController {
-    @Autowired
-    ProductService productService;
-    @Autowired
-    CartService cartService;
 
+    private final ProductService productService;
 
-    @Autowired
-    UserService userService;
+    private final CartService cartService;
+
+    private final UserService userService;
 
     @PostMapping("/addcart")
     public String addToCart(@ModelAttribute("cartItemDto") CartItemDto cartItemDto, HttpServletRequest request, HttpServletResponse response) {

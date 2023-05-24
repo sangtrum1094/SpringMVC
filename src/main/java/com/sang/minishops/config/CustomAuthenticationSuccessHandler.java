@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -23,20 +23,17 @@ import java.net.URLDecoder;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private CartService cartService;
-    //
-    @Autowired
-    private ProductService productService;
+    private final CartService cartService;
 
-    @Autowired
-    private UserService userService;
 
-    public CustomAuthenticationSuccessHandler() {
+    private final ProductService productService;
 
-    }
+
+    private final UserService userService;
+
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

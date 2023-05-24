@@ -4,6 +4,7 @@ import com.sang.minishops.entity.Product;
 import com.sang.minishops.repository.ImageRepository;
 import com.sang.minishops.repository.ProductRepository;
 import com.sang.minishops.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,13 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private  ProductRepository productRepository;
-    @Autowired
-    private  ImageRepository imageRepository;
+
+    private final  ProductRepository productRepository;
+
+    private final ImageRepository imageRepository;
 
 
     @Override

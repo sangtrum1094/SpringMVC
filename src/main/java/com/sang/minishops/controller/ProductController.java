@@ -9,10 +9,10 @@ import com.sang.minishops.service.ImageService;
 import com.sang.minishops.service.ProductService;
 import com.sang.minishops.service.imp.UserDetailService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,15 +27,18 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private ImageService imageService;
+    private final UserDetailService userDetailService;
 
-    @Autowired
-    private ProductCsvDtoToProduct productCsvDtoToProduct;
+
+    private final ProductService productService;
+
+    private final ImageService imageService;
+
+    private final ProductCsvDtoToProduct productCsvDtoToProduct;
+
     @GetMapping("/admin/addproduct")
     public String showAddProductForm(Model model) {
         model.addAttribute("product", new Product());
@@ -94,8 +97,7 @@ public class ProductController {
     public String showListProduct(Model model) {
         List<Product> listProduct = productService.getAllProduct();
         model.addAttribute("listproduct", listProduct);
-        UserDetailService userDetailDevices = new UserDetailService();
-        String currentUsername = userDetailDevices.getCurrentUsername();
+        String currentUsername = userDetailService.getCurrentUsername();
         model.addAttribute("username", currentUsername);
         return "home";
     }
@@ -106,13 +108,13 @@ public class ProductController {
     }
 
     @PostMapping("/upload-csv")
-    public String csvUploadFile(@RequestParam("csvFile") MultipartFile csvFile,Model model) {
+    public String csvUploadFile(@RequestParam("csvFile") MultipartFile csvFile, Model model) {
         if (!csvFile.isEmpty()) {
             try {
                 Reader reader = new InputStreamReader(csvFile.getInputStream());
-                CSVParser csvParser= new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
+                CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
                 List<ProductCsvDto> productCsvDtos = new ArrayList<>();
-                for (CSVRecord record : csvParser){
+                for (CSVRecord record : csvParser) {
                     ProductCsvDto productCsvDto = new ProductCsvDto();
                     productCsvDto.setProductName(record.get("ProductName"));
                     productCsvDto.setProductDescription(record.get("ProductDescription"));
@@ -121,20 +123,20 @@ public class ProductController {
                     productCsvDto.setImageUrl(record.get("ImageURL"));
                     productCsvDtos.add(productCsvDto);
                 }
-                for (ProductCsvDto productCsvDto1 : productCsvDtos){
-                     Product product = productCsvDtoToProduct.ConvertProductCsvDtotoProduct(productCsvDto1);
-                     productService.saveProductCsv(product);
+                for (ProductCsvDto productCsvDto1 : productCsvDtos) {
+                    Product product = productCsvDtoToProduct.ConvertProductCsvDtotoProduct(productCsvDto1);
+                    productService.saveProductCsv(product);
                 }
                 csvParser.close();
                 reader.close();
-                model.addAttribute("successMessage","CSV file uploaded and processed successfully");
+                model.addAttribute("successMessage", "CSV file uploaded and processed successfully");
             } catch (Exception e) {
                 // Xử lý lỗi nếu có
-                    model.addAttribute("errorMessage","Error uploading and processing CSV file: " );
+                model.addAttribute("errorMessage", "Error uploading and processing CSV file: ");
             }
         } else {
-            model.addAttribute("errorMessage","Please select a CSV file to upload");
+            model.addAttribute("errorMessage", "Please select a CSV file to upload");
         }
-        return  "upload-csv";
+        return "upload-csv";
     }
 }

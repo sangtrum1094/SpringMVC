@@ -2,6 +2,7 @@ package com.sang.minishops.service.imp;
 
 import com.sang.minishops.entity.User;
 import com.sang.minishops.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,12 +20,13 @@ import java.util.Set;
  * The type User detail devices.
  */
     @Service
+    @RequiredArgsConstructor
     public class UserDetailService implements UserDetailsService {
         /**
          * The User repository.
          */
-        @Autowired
-        UserRepository userRepository;
+
+        private final UserRepository userRepository;
 
         @Override
         public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

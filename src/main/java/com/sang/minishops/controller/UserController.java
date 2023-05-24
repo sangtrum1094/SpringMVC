@@ -4,6 +4,7 @@ import com.sang.minishops.entity.Role;
 import com.sang.minishops.entity.User;
 import com.sang.minishops.repository.RoleRepository;
 import com.sang.minishops.service.imp.UserServiceImp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,15 +18,16 @@ import java.util.Optional;
  * The type User controller.
  */
 @Controller
+@RequiredArgsConstructor
 public class UserController {
     /**
      * The User service imp.
      */
-    @Autowired
-    UserServiceImp userServiceImp;
 
-    @Autowired
-    RoleRepository roleRepository;
+    private final UserServiceImp userServiceImp;
+
+
+    private final RoleRepository roleRepository;
 
 
     @GetMapping("/adduser")

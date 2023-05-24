@@ -8,6 +8,7 @@ import com.sang.minishops.config.PaypalPaymentMethod;
 import com.sang.minishops.entity.Utils;
 import com.sang.minishops.service.PaypalService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class PaymentController {
     public static final String URL_PAYPAL_SUCCESS = "pay/success";
     public static final String URL_PAYPAL_CANCEL = "pay/cancel";
     private Logger log = LoggerFactory.getLogger(getClass());
-    @Autowired
-    private PaypalService paypalService;
+
+    private final PaypalService paypalService;
     @GetMapping("/")
     public String Home(){
         return "home";

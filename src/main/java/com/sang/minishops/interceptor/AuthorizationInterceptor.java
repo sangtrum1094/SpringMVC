@@ -15,8 +15,7 @@ import java.util.Collection;
 
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
-    final
-    UserService userService;
+    final UserService userService;
 
     public AuthorizationInterceptor(UserService userService) {
         this.userService = userService;

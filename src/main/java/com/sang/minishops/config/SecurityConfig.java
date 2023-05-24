@@ -1,6 +1,7 @@
 package com.sang.minishops.config;
 
 import com.sang.minishops.service.imp.UserDetailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +18,13 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-    @Autowired
-    private UserDetailService userDetailService;
 
-    @Autowired
-    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final UserDetailService userDetailService;
+
+
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     /**
      * Password encoder password encoder.
