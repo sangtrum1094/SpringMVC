@@ -3,12 +3,11 @@ package com.sang.minishops.controller;
 import com.sang.minishops.entity.Role;
 import com.sang.minishops.entity.User;
 import com.sang.minishops.repository.RoleRepository;
-import com.sang.minishops.service.imp.UserDetailDevices;
 import com.sang.minishops.service.imp.UserServiceImp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,15 +18,16 @@ import java.util.Optional;
  * The type User controller.
  */
 @Controller
+@RequiredArgsConstructor
 public class UserController {
     /**
      * The User service imp.
      */
-    @Autowired
-    UserServiceImp userServiceImp;
 
-    @Autowired
-    RoleRepository roleRepository;
+    private final UserServiceImp userServiceImp;
+
+
+    private final RoleRepository roleRepository;
 
 
     @GetMapping("/adduser")
@@ -46,7 +46,7 @@ public class UserController {
         user.setPassword(encodedPassword);
 
         userServiceImp.saveUser(user);
-        return "listproduct";
+        return "adduser";
     }
 
     ;
