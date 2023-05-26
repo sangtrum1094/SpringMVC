@@ -25,50 +25,49 @@ public class UserServiceTest {
     @BeforeEach
     public void setup() {
         userRepository = mock(UserRepository.class);
-        userService = new UserServiceImp(userRepository); // Khởi tạo đối tượng userService với userRepository đã khởi tạo
+        userService = new UserServiceImp(userRepository);
     }
 
     @Test
     public void testFindUserByUserName() {
-        // Arrange
-        String username = "testuser";
+        String username = "sang";
         User expectedUser = new User();
         expectedUser.setUsername(username);
         Mockito.when(userRepository.findUserByUsername(username)).thenReturn(expectedUser);
 
-        // Act
+
         User actualUser = userService.findUserByUserName(username);
 
-        // Assert
+
         assertNotNull(actualUser);
         assertEquals(expectedUser, actualUser);
     }
 
-//    @Test
-//    public void testSaveUser() {
-//        // Arrange
-//        User user = new User();
-//
-//        // Act
-//        userService.saveUser(user);
-//
-//        // Assert
-//        Mockito.verify(userRepository).save(user);
-//    }
+    @Test
+    public void testSaveUser() {
 
-//    @Test
-//    public void testFindUserById() {
-//        // Arrange
-//        int userId = 1;
-//        User expectedUser = new User();
-//        expectedUser.setId(userId);
-//        Mockito.when(userRepository.findUserById(userId)).thenReturn(expectedUser);
-//
-//        // Act
-//        User actualUser = userService.findUserById(userId);
-//
-//        // Assert
-//        assertNotNull(actualUser);
-//        assertEquals(expectedUser, actualUser);
-//    }
+        User user = new User();
+
+
+        userService.saveUser(user);
+
+
+        Mockito.verify(userRepository).save(user);
+    }
+
+    @Test
+    public void testFindUserById() {
+
+        int userId = 1;
+        User expectedUser = new User();
+        expectedUser.setId(userId);
+        Mockito.when(userRepository.findUserById(userId)).thenReturn(expectedUser);
+
+
+        User actualUser = userService.findUserById(userId);
+
+
+        assertNotNull(actualUser);
+        assertEquals(expectedUser, actualUser);
+    }
 }

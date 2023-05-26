@@ -17,8 +17,10 @@ public class RoleServiceImp implements RoleService {
 
 
     @Override
-    public Optional<Role> findById(Integer id) {
-        return Optional.empty();
+    public Role findById(Integer id) {
+        Optional<Role> roles = roleRepository.findById(id);
+        Role role =roles.get();
+        return role;
     }
 
     @Override

@@ -45,8 +45,8 @@ public class ProductServiceImpl implements ProductService {
 
             Image image = new Image();
             image.setFileName(fileName);
-
-            images.add(imageRepository.save(image));
+            imageRepository.save(image);
+            images.add(image);
             imageUrl = filePath.toString();
 
 
