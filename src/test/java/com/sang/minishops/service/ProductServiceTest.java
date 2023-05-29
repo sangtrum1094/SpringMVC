@@ -43,9 +43,7 @@ public class ProductServiceTest {
         Product product = new Product();
         product.setProductName("Test Product");
         product.setProductActualPrince(2.0);
-        product.setProductDescription("Test mo ta");
-        product.setProductDiscountedPrince(1.0);
-        product.setImageUrl("Image/file1");
+
 
         // Tạo đối tượng Image
         Image image1 = new Image();
