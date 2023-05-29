@@ -1,16 +1,15 @@
 package com.sang.minishops.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
-@Data
+@RequiredArgsConstructor
+@Getter
 @Entity
 public class Product {
     @Id
@@ -35,6 +34,10 @@ public class Product {
     )
     private Set<Image> images = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
-    private Set<Card> cards = new HashSet<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<Cart> carts = new HashSet<>();
+
+    public Product(int id, String productName){
+       this.productName =productName;
+    }
 }
