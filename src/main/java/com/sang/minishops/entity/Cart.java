@@ -31,4 +31,8 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public Cart(int quantity){
+        this.quantity=quantity;
+    }
 }

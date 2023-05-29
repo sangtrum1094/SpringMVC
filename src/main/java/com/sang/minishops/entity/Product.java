@@ -1,16 +1,14 @@
 package com.sang.minishops.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Entity
 public class Product {
@@ -38,4 +36,8 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Cart> carts = new HashSet<>();
+
+    public Product(int id, String productName){
+       this.productName =productName;
+    }
 }

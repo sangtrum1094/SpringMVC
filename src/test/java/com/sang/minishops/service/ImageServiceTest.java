@@ -34,7 +34,6 @@ class ImageServiceTest {
 
         Mockito.verify(imageRepository).save(image);
     }
-
     @Test
     void deleteById() {
         int id =1;

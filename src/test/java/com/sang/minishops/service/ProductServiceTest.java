@@ -5,7 +5,6 @@ import com.sang.minishops.entity.Product;
 import com.sang.minishops.repository.ImageRepository;
 import com.sang.minishops.repository.ProductRepository;
 import com.sang.minishops.service.imp.ProductServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,10 +14,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
@@ -42,7 +42,10 @@ public class ProductServiceTest {
         // Tạo đối tượng Product
         Product product = new Product();
         product.setProductName("Test Product");
-        // ...
+        product.setProductActualPrince(2.0);
+        product.setProductDescription("Test mo ta");
+        product.setProductDiscountedPrince(1.0);
+        product.setImageUrl("Image/file1");
 
         // Tạo đối tượng Image
         Image image1 = new Image();
@@ -58,8 +61,8 @@ public class ProductServiceTest {
         images.add(image2);
 
         // Mock các phương thức và hành vi của các đối tượng mock
-        Mockito.when(imageRepository.save(Mockito.any(Image.class))).thenReturn(image1, image2);
-        Mockito.when(productRepository.save(Mockito.any(Product.class))).thenReturn(product);
+        when(imageRepository.save(Mockito.any(Image.class))).thenReturn(image1, image2);
+        when(productRepository.save(Mockito.any(Product.class))).thenReturn(product);
 
         // Gọi phương thức saveProduct
         Product savedProduct = productService.saveProduct(product, files);
@@ -68,10 +71,64 @@ public class ProductServiceTest {
         Mockito.verify(imageRepository, Mockito.times(2)).save(Mockito.any(Image.class));
         Mockito.verify(productRepository).save(Mockito.any(Product.class));
 
-        // Assert các giá trị trong savedProduct
-
-
-        // Assert các giá trị trong images của savedProduct
-        // ...
     }
+
+    @Test
+    public void testGetAllProduct(){
+        // tạo danh sách mẫu để trả về từ Repository
+        List<Product> productList = new ArrayList<>();
+        productList.add(new Product(1,"Product1"));
+        productList.add(new Product(2,"Product2"));
+        when(productRepository.findAll()).thenReturn(productList);
+
+        // Gọi phương thức kiểm tra thử
+         List<Product> list= productService.getAllProduct();
+        // Kiểm tra kết quả
+        assertEquals(2,list.size());
+        assertEquals("Product1",list.get(0).getProductName());
+        assertEquals("Product2", list.get(1).getProductName());
+    }
+    @Test
+    public void testGetProductById() {
+        // Tạo đối tượng Product mẫu để trả về từ Repository
+        Product expectedProduct = new Product();
+        expectedProduct.setId(1);
+        expectedProduct.setProductName("Product1");
+
+        // Thiết lập hành vi cho productRepository.findById(id)
+        when(productRepository.findById(1)).thenReturn(Optional.ofNullable(expectedProduct));
+
+        // Gọi phương thức kiểm tra thử
+        Product actualProduct = productService.GetProductById(1);
+
+        // Kiểm tra kết quả
+        assertEquals(expectedProduct, actualProduct);
+        assertEquals("Product1", actualProduct.getProductName());
+    }
+    @Test
+    public void testDeleteProduct() {
+
+        int productId = 1;
+
+        // Gọi phương thức cần kiểm tra
+        productService.DeleteProduct(productId);
+
+        // Kiểm tra xem phương thức deleteById đã được gọi với đúng tham số chưa
+        verify(productRepository).deleteById(productId);
+    }
+    @Test
+    public void testSaveProductCsv() {
+        Product product = new Product();
+        // Thiết lập các thuộc tính của product
+        product.setProductName("Áo thun 1");
+        product.setProductDescription("mo ta 1");
+        product.setProductDiscountedPrince(2.0);
+
+        // Gọi phương thức cần kiểm tra
+        productService.saveProductCsv(product);
+
+        // Kiểm tra xem phương thức save đã được gọi với đúng đối tượng product chưa
+        verify(productRepository).save(product);
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface CartService {
+    public interface CartService {
 
     void addToCart(Cart cart);
     List<Cart> findAllByUserId(int id);
@@ -18,5 +18,4 @@ public interface CartService {
 
     Cart  findByUserIdAndProductId(int userId, int productId);
     void deleteCartById(int id);
-
 }
