@@ -100,7 +100,7 @@ public class UserController {
      * @return the string
      */
     @PostMapping("/adduserrole")
-    public String addRole(@RequestParam String username, @RequestParam int id) {
+    public String addRoles(@RequestParam String username, @RequestParam int id) {
         User user = userServiceImp.findUserByUserName(username);
         Optional<Role> roles = roleRepository.findById(id);
         if (roles.isPresent()) {
