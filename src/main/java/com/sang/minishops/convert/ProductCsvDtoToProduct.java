@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class ProductCsvDtoToProduct {
 
 
-    public Product ConvertProductCsvDtotoProduct(ProductCsvDto productCsvDto){
+    public Product convertProductCsvDtotoProduct(ProductCsvDto productCsvDto){
         Product product = new Product();
         product.setProductName(productCsvDto.getProductName());
         product.setProductDescription(productCsvDto.getProductDescription());

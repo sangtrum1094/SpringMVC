@@ -3,7 +3,6 @@ package com.sang.minishops.interceptor;
 import com.sang.minishops.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,8 +25,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof UserDetails userDetails) {
             // Kiểm tra quyền của người dùng
             Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
             if (!authorities.contains(new SimpleGrantedAuthority("ADMIN"))) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Danh sách Sản phẩm</title>
@@ -36,6 +36,7 @@
     <h1 class="text-center mt-3" style="background-color: cornsilk; color: red;">Danh sách Sản phẩm</h1>
     <div class="table-responsive">
       <table class="table table-striped">
+        <caption>This table displays the list of products</caption>
         <thead style="background-color: green; color: white;">
         <tr>
         <tr>
@@ -54,7 +55,7 @@
           <td th:text="${product.productDescription}"></td>
           <td th:text="${product.productDiscountedPrince}"></td>
           <td th:text="${product.productActualPrince}"></td>
-          <td><img th:src="${product.imageUrl}" class="img-fluid" /></td>
+          <td><img th:src="${product.imageUrl}" class="img-fluid"  alt="Product Image"/></td>
           <td>
             <form method="post" th:action="@{/deleteproduct}">
               <input type="hidden" name="id" th:value="${product.id}" />

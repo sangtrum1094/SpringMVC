@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceTest {
+   class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
@@ -33,7 +33,7 @@ public class ProductServiceTest {
     private ProductServiceImpl productService;
 
     @Test
-    public void testSaveProduct() throws IOException {
+     void testSaveProduct() throws IOException {
         // Tạo mock MultipartFile
         MockMultipartFile[] files = new MockMultipartFile[2];
         files[0] = new MockMultipartFile("file1", "file1.jpg", "image/jpeg", new byte[]{1, 2, 3});
@@ -72,7 +72,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testGetAllProduct(){
+     void testGetAllProduct(){
         // tạo danh sách mẫu để trả về từ Repository
         List<Product> productList = new ArrayList<>();
         productList.add(new Product(1,"Product1"));
@@ -87,7 +87,7 @@ public class ProductServiceTest {
         assertEquals("Product2", list.get(1).getProductName());
     }
     @Test
-    public void testGetProductById() {
+     void testGetProductById() {
         // Tạo đối tượng Product mẫu để trả về từ Repository
         Product expectedProduct = new Product();
         expectedProduct.setId(1);
@@ -97,25 +97,25 @@ public class ProductServiceTest {
         when(productRepository.findById(1)).thenReturn(Optional.ofNullable(expectedProduct));
 
         // Gọi phương thức kiểm tra thử
-        Product actualProduct = productService.GetProductById(1);
+        Product actualProduct = productService.getProductById(1);
 
         // Kiểm tra kết quả
         assertEquals(expectedProduct, actualProduct);
         assertEquals("Product1", actualProduct.getProductName());
     }
     @Test
-    public void testDeleteProduct() {
+     void testDeleteProduct() {
 
         int productId = 1;
 
         // Gọi phương thức cần kiểm tra
-        productService.DeleteProduct(productId);
+        productService.deleteProduct(productId);
 
         // Kiểm tra xem phương thức deleteById đã được gọi với đúng tham số chưa
         verify(productRepository).deleteById(productId);
     }
     @Test
-    public void testSaveProductCsv() {
+     void testSaveProductCsv() {
         Product product = new Product();
         // Thiết lập các thuộc tính của product
         product.setProductName("Áo thun 1");

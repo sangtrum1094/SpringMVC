@@ -17,17 +17,20 @@ public class LoggingAspect {
 
     @Before("controllerMethods()")
     public void logBefore(JoinPoint joinPoint) {
-        logger.info("Trước khi gọi một phuơng thức controller: {}", joinPoint.getSignature().toShortString());
+        String signature = joinPoint.getSignature().toShortString();
+        logger.info("Trước khi gọi một phương thức controller: {}", signature);
     }
 
     @AfterReturning("controllerMethods()")
     public void logAfter(JoinPoint joinPoint) {
-        logger.info("Sau khi gọi một phương thức trong controller: {}", joinPoint.getSignature().toShortString());
+        String signature = joinPoint.getSignature().toShortString();
+        logger.info("Sau khi gọi một phương thức trong controller: {}", signature);
     }
 
     @AfterThrowing(pointcut = "controllerMethods()", throwing = "exception")
     public void logError(JoinPoint joinPoint, Throwable exception) {
-        logger.error("Lỗi khi gọi một phương thức của controller: {}. Exception: {}", joinPoint.getSignature().toShortString(), exception.getMessage());
+        String signature = joinPoint.getSignature().toShortString();
+        logger.error("Lỗi khi gọi một phương thức của controller: {}", signature);
     }
 }
 

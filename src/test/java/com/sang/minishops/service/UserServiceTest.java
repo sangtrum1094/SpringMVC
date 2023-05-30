@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+ class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
@@ -29,7 +29,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testFindUserByUserName() {
+     void testFindUserByUserName() {
         String username = "sang";
         User expectedUser = new User();
         expectedUser.setUsername(username);
@@ -44,7 +44,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testSaveUser() {
+     void testSaveUser() {
 
         User user = new User();
 
@@ -56,7 +56,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testFindUserById() {
+     void testFindUserById() {
 
         int userId = 1;
         User expectedUser = new User();

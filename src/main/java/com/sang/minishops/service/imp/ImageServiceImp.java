@@ -4,7 +4,6 @@ import com.sang.minishops.entity.Image;
 import com.sang.minishops.repository.ImageRepository;
 import com.sang.minishops.service.ImageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +19,6 @@ public class ImageServiceImp implements ImageService {
 
     @Override
     public void deleteById(int id) {
-      imageRepository.deleteById(id);
+        imageRepository.deleteById(id);
     }
 }

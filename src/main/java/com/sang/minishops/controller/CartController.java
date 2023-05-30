@@ -10,7 +10,6 @@ import com.sang.minishops.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -47,7 +46,7 @@ public class CartController {
         Cart cart = cartService.findByUserIdAndProductId(userId, productId);
         if (cart == null) {
             Cart cartNew = new Cart();
-            Product product = productService.GetProductById(productId);
+            Product product = productService.getProductById(productId);
             cartNew.setProduct(product);
             cartNew.setUser(user);
             cartNew.setQuantity(cartItemDto.getQuantity());

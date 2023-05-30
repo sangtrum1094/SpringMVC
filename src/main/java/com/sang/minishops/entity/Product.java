@@ -37,7 +37,8 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Cart> carts = new HashSet<>();
 
-    public Product(int id, String productName){
+    public Product(int id,String productName){
        this.productName =productName;
+       this.id=id;
     }
 }

@@ -4,10 +4,9 @@ import com.sang.minishops.entity.Role;
 import com.sang.minishops.repository.RoleRepository;
 import com.sang.minishops.service.RoleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -18,9 +17,8 @@ public class RoleServiceImp implements RoleService {
 
     @Override
     public Role findById(Integer id) {
-        Optional<Role> roles = roleRepository.findById(id);
-        Role role =roles.get();
-        return role;
+        return roleRepository.findById(id).
+                orElseThrow(() -> new NoSuchElementException("Role not found"));
     }
 
     @Override

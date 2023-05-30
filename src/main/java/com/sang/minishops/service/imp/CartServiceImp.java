@@ -5,7 +5,6 @@ import com.sang.minishops.entity.Product;
 import com.sang.minishops.repository.CartRepository;
 import com.sang.minishops.service.CartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CartServiceImp implements CartService {
 
-     private final  CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
 
     @Override

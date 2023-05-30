@@ -1,6 +1,5 @@
 package com.sang.minishops.service;
 
-import com.sang.minishops.entity.Role;
 import com.sang.minishops.entity.User;
 
 /**

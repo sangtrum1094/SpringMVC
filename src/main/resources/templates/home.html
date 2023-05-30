@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sản Phẩm</title>
@@ -45,7 +45,7 @@
     <h1 class="text-center mt-3" style="background-color: cornsilk; color: red;">Danh sách Sản phẩm</h1>
     <div class="card-deck">
         <div th:each="product: ${listproduct}" class="card">
-            <img class="card-img-top" th:src="${product.imageUrl}">
+            <img class="card-img-top" th:src="${product.imageUrl}"  alt="Product Image">
             <div class="card-body">
                 <h5 class="card-title" th:text="${product.productName}"></h5>
                 <p class="card-text" th:text="${product.productDescription}"></p>

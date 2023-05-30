@@ -60,7 +60,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 int quantity = item.getQuantity();
                 String username = auth.getName();
                 User user = userService.findUserByUserName(username);
-                Product product = productService.GetProductById(id);
+                Product product = productService.getProductById(id);
 
                 Cart cart = new Cart();
                 cart.setUser(user);

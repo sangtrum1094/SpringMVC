@@ -5,7 +5,6 @@ import com.sang.minishops.entity.User;
 import com.sang.minishops.repository.RoleRepository;
 import com.sang.minishops.service.imp.UserServiceImp;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +30,12 @@ public class UserController {
 
 
     @GetMapping("/adduser")
-    public String adduser() {
+    public String addUser() {
         return "adduser";
     }
 
     @PostMapping("/adduser")
-    public String addUSer(@RequestParam("username") String username,
+    public String addUser(@RequestParam("username") String username,
                           @RequestParam("password") String password) {
         User user = new User();
         user.setUsername(username);
@@ -49,15 +48,13 @@ public class UserController {
         return "adduser";
     }
 
-    ;
-
     /**
      * Login page string.
      *
      * @return the string
      */
     @GetMapping("/login")
-    public String LoginPage() {
+    public String loginPage() {
         return "login";
     }
 
@@ -74,13 +71,13 @@ public class UserController {
      * @return the string
      */
     @GetMapping("/admin")
-    public String AdminPage() {
+    public String adminPage() {
         return "admin";
     }
 
 
     @GetMapping("/user")
-    public String UserPage() {
+    public String userPage() {
         return "user";
     }
 
@@ -91,7 +88,7 @@ public class UserController {
      * @return the string
      */
     @GetMapping("/adduserrole")
-    public String AddRolePage() {
+    public String addRole() {
         return "adduserrole";
     }
 
@@ -103,7 +100,7 @@ public class UserController {
      * @return the string
      */
     @PostMapping("/adduserrole")
-    public String AddRolepage(@RequestParam String username, @RequestParam int id) {
+    public String addRole(@RequestParam String username, @RequestParam int id) {
         User user = userServiceImp.findUserByUserName(username);
         Optional<Role> roles = roleRepository.findById(id);
         if (roles.isPresent()) {

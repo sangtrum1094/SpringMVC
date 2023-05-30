@@ -3,7 +3,6 @@ package com.sang.minishops.controller;
 import com.sang.minishops.entity.Role;
 import com.sang.minishops.service.RoleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +15,12 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping("/addrole")
-    public String AddRolePage() {
+    public String addRolePage() {
         return "addrole";
     }
 
     @PostMapping("/addrole")
-    public String AddnewRole(@RequestParam("name") String name) {
+    public String addnewRole(@RequestParam("name") String name) {
         Role role = new Role();
         role.setName(name);
         roleService.save(role);

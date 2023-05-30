@@ -23,12 +23,12 @@ class RoleServiceTest {
     private  RoleService roleService;
 
     @BeforeEach
-    public void setup(){
+     void setup(){
         roleRepository = mock(RoleRepository.class);
         roleService = new RoleServiceImp(roleRepository);
     }
     @Test
-    public  void findById() {
+      void findById() {
         int roleId=1;
         Role expectedRole = new Role();
         expectedRole.setId(roleId);
@@ -41,7 +41,7 @@ class RoleServiceTest {
     }
 
     @Test
-    public void save() {
+     void save() {
         Role role = new Role();
 
         roleService.save(role);

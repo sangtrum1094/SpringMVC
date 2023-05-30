@@ -2,7 +2,6 @@ package com.sang.minishops.config;
 
 import com.sang.minishops.service.imp.UserDetailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,13 +58,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/addroles", "/home", "/adduser", "/addrole", "/Image/**", "/js/**", "/product/{id}", "/product/**", "/add-to-cart","/cart").permitAll()
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/", "/addroles", "/home", "/adduser", "/addrole", "/Image/**", "/js/**", "/product/{id}", "/product/**", "/add-to-cart", "/cart").permitAll()
                         .requestMatchers("/admin", "/admin/addproduct", "/deleteproduct", "/listproduct").hasAnyAuthority("ADMIN")
                         .requestMatchers("/user").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
+                .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login-start")
                         .defaultSuccessUrl("/home")
@@ -73,7 +72,7 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
-                .logout((logout) -> logout
+                .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .logoutUrl("/logout")
