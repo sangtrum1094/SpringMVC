@@ -1,6 +1,5 @@
 package com.sang.minishops.service;
 
-import com.sang.minishops.entity.Role;
 import com.sang.minishops.entity.User;
 
 /**
@@ -22,5 +21,5 @@ public interface UserService {
      */
     void saveUser(User user);
 
-
+    User findUserById(int id);
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cart</title>
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container py-5">
+    <h1 class="mb-5">Cart</h1>
+    <table class="table" >
+      <caption>This table displays the list of products</caption>
+      <thead>
+      <tr>
+        <th>Tên Sản Phẩm</th>
+        <th>Số Lượng</th>
+        <th>Ngày Thêm</th>
+        <th>Ảnh</th>
+        <th>Giá</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="cart : ${carts}">
+        <td th:text="${cart.product.productName}"></td>
+        <td th:text="${cart.quantity}"></td>
+        <td th:text="${cart.createdDate}"></td>
+        <td><img th:src="${cart.product.imageUrl }" alt="product image" style="max-width: 100px; max-height: 100px;"></td>
+        <td th:text="${cart.product.getProductActualPrince()}"></td>
+        <td><button class="btn btn-primary">Mua ngay</button></td>
+        <td><form th:action="@{/delete/{id}(id=${cart.id})}" method="get">
+          <input type="hidden" name="_method" value="DELETE" />
+          <button type="submit" class="btn btn-danger">Xóa</button>
+        </form></td>
+      </tr>
+      <tr>
+        <td colspan="4">Tổng Tiền</td>
+        <td id="total"></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="payment-cell">
+          <form id="paymentForm" method="post" th:action="@{/pay}">
+            <input type="hidden" name="price" />
+            <button type="submit">Thanh toán Paypal</button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .payment-cell {
+      text-align: right;
+    }
+  </style>
+  <script>
+    let total = 0;
+    const prices = document.querySelectorAll("td:nth-child(5)");
+    prices.forEach((price) => {
+      total += parseFloat(price.textContent);
+    });
+    document.getElementById("total").textContent = total + " $";
+
+    // Gán giá trị tổng tiền vào trường ẩn khi form được gửi
+    document.getElementById("paymentForm").addEventListener("submit", function() {
+      const priceInput = document.querySelector("input[name='price']");
+      priceInput.value = total;
+    });
+  </script>
+</body>
+</html>

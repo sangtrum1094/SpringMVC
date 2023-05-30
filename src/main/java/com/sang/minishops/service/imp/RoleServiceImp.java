@@ -3,20 +3,22 @@ package com.sang.minishops.service.imp;
 import com.sang.minishops.entity.Role;
 import com.sang.minishops.repository.RoleRepository;
 import com.sang.minishops.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
+@RequiredArgsConstructor
 public class RoleServiceImp implements RoleService {
-    @Autowired
-    RoleRepository roleRepository;
+
+    private final RoleRepository roleRepository;
 
 
     @Override
-    public Optional<Role> findById(Integer id) {
-        return Optional.empty();
+    public Role findById(Integer id) {
+        return roleRepository.findById(id).
+                orElseThrow(() -> new NoSuchElementException("Role not found"));
     }
 
     @Override
